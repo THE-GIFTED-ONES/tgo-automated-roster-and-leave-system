@@ -1,0 +1,19 @@
+{
+  "name": "tgo-automated-roster-and-leave-system",
+  "version": "1.0.0",
+  "description": "A software tool designed to automate the process of creating employee work roasters annd managing leave requests.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/THE-GIFTED-ONES/tgo-automated-roster-and-leave-system.git"
+  },
+  "author": "THE-GIFTED-ONES",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/THE-GIFTED-ONES/tgo-automated-roster-and-leave-system/issues"
+  },
+  "homepage": "https://github.com/THE-GIFTED-ONES/tgo-automated-roster-and-leave-system#readme"
+}
