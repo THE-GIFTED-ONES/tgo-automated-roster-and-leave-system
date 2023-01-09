@@ -22,6 +22,6 @@ export default function App(){
                 mode = {mode}    
             />
         </div>
-        
+        //customization of user interface based on the time of the day.
     )
 }
