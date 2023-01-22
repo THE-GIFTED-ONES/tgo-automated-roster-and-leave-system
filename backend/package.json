@@ -1,19 +1,38 @@
 {
-  "name": "tgo-backend",
+  "name": "tgo-automated-roster-and-leave-system",
   "version": "1.0.0",
-  "description": "Automatic Roaster Management System associated with leave management",
-  "main": "server.js",
+  "description": "A software tool designed to automate the process of creating employee work rosters and managing leave requests.",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server",
-    "dev": "nodemon server"
+    "start": "set NODE_ENV=development && nodemon server.js",
+    "start:prod": "set NODE_ENV=production && nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "THE_GIFTED_ONES (tgo)",
+  "author": "FOR_THE_GIFTED_ONES_BY_KINGMALITHA",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^7.0.0",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.8.4",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.9.0",
+    "slugify": "^1.6.5",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "eslint": "^8.32.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.1",
+    "prettier": "^2.8.3"
+  },
+  "engines": {
+    "node": ">=12.0.0"
   }
 }
