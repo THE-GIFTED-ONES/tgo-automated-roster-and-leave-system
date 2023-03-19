@@ -3,6 +3,18 @@ const APIFeatures = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
+const filterObj = (Obj, ...allowedFields) => {
+  //...allowedFields is an array of strings
+  const newObj = {};
+  //Object.keys(Obj) returns an array of keys of Obj
+  Object.keys(Obj).forEach((el) => {
+    if (allowedFields.includes(el)) {
+      newObj[el] = Obj[el];
+    } //if el is in allowedFields, then add it to newObj
+  });
+  return newObj;
+};
+
 exports.getAllUsers = catchAsync(async (req, res) => {
   const users = await User.find();
 
@@ -26,10 +38,27 @@ exports.updateMe = catchAsync(async (req, res, next) => {
       )
     );
   }
-  // 2) Filtered out unwanted fields names that are not allowed to be updated
+  // 2) Filtered out unwanted fields names that are not allowed to be updated.
+  const filteredBody = filterObj(req.body, 'emp_name', 'emp_email');
+  const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
+    new: true,
+    runValidators: true,
+  });
 
   res.status(200).json({
     status: 'success',
+    data: {
+      user: updatedUser,
+    },
+  });
+});
+
+exports.deleteMe = catchAsync(async (req, res, next) => {
+  await User.findByIdAndUpdate(req.user.id, { active: false });
+
+  res.status(204).json({
+    status: 'success',
+    data: null,
   });
 });
 

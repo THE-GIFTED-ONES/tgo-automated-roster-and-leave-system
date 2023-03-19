@@ -59,6 +59,11 @@ const userSchema = new mongoose.Schema({
   },
   passwordResetToken: String,
   passwordResetExpires: Date,
+  active: {
+    type: Boolean,
+    default: true,
+    select: false,
+  },
 });
 
 //?PRE-MIDDLEWARE - DOCUMENT MIDDLEWARE: runs before .save() and .create()
@@ -83,6 +88,14 @@ userSchema.pre('save', function (next) {
 
   this.passwordChangedAt = Date.now() - 1000;
   //?To make sure that the token is issued before the password is changed. Saving to the database takes some time. So we subtract 1 second from the current time. So that the token is issued before the password is changed.
+  next();
+});
+
+userSchema.pre(/^find/, function (next) {
+  // ^find - find all the strings that start with find.
+  // this points to the current query
+  this.find({ active: { $ne: false } });
+  // $ne - not equal to. So we are finding all the documents where active is not equal to false.
   next();
 });
 

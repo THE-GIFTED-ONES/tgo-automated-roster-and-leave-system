@@ -25,7 +25,11 @@ exports.getAllLeaves = catchAsync(async (req, res, next) => {
 });
 
 exports.createLeave = catchAsync(async (req, res, next) => {
+  const saved = req.saveduser;
   const newLeave = await LeaveRequest.create(req.body);
+
+  newLeave.empID = saved.empID;
+  await newLeave.save();
 
   res.status(201).json({
     status: 'success',
@@ -49,3 +53,22 @@ exports.getLeave = catchAsync(async (req, res, next) => {
     },
   });
 });
+exports.getUserLeaves = catchAsync(async (req, res, next) => {
+  const leave = await LeaveRequest.find({ emp_id: req.emp_id });
+
+  if (!leave) {
+    return next(new AppError('No leave found with that ID', 404));
+  }
+  res.status(200).json({
+    status: 'success',
+    data: {
+      leave: leave,
+    },
+  });
+});
+
+//Saving Current user: After the protect route, we can use the saveuser function to save the current user in the request object
+exports.saveuser = (req, res, next) => {
+  req.saveduser = req.user;
+  next();
+};
